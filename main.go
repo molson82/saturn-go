@@ -40,6 +40,10 @@ func routes(c *config.Config) *chi.Mux {
 		http.Redirect(w, r, "/view/index", http.StatusSeeOther)
 	})
 
+	r.Get("/view/tailwind.css", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/dist/tailwind.css")
+	})
+
 	return r
 }
 

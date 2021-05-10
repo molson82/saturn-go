@@ -1,0 +1,24 @@
+{
+  "name": "saturn-go",
+  "version": "1.0.0",
+  "description": "Frontend and Go Backend Project Template",
+  "main": "index.js",
+  "scripts": {
+    "build:tailwind": "postcss ./static/css/master.css -o ./static/dist/tailwind.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/molson82/saturn-go.git"
+  },
+  "author": "molson82",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/molson82/saturn-go/issues"
+  },
+  "homepage": "https://github.com/molson82/saturn-go#readme",
+  "dependencies": {
+    "postcss": "^8.2.14",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^2.1.2"
+  }
+}
