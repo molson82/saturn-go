@@ -29,7 +29,7 @@ func routes(c *config.Config) *chi.Mux {
 		middleware.Recoverer)
 
 	r.Route("/view", func(r chi.Router) {
-		r.Mount("/index", controller.PageRoutes(c, "index.html"))
+		r.Mount("/index", controller.GetIndexPage(c))
 	})
 
 	r.Route("/api", func(r chi.Router) {

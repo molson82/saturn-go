@@ -5,23 +5,19 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/go-chi/chi/v5"
 	"github.com/molson82/saturn-go/config"
 )
 
-func PageRoutes(c *config.Config, page string) *chi.Mux {
-	router := chi.NewRouter()
-	switch page {
-	case "index.html":
-		router.Get("/", getIndexPage(c))
-	}
+func getTemplate(fm template.FuncMap, name string) *template.Template {
+	tpl := template.Must(template.New("").Funcs(fm).ParseGlob("view/template/*.tmpl.html"))
+	tpl.ParseFiles("view/" + name)
 
-	return router
+	return tpl
 }
 
-func getIndexPage(c *config.Config) http.HandlerFunc {
+func GetIndexPage(c *config.Config) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		tpl := template.Must(template.New("index").Funcs(template.FuncMap{}).ParseFiles("view/index.html"))
+		tpl := getTemplate(template.FuncMap{}, "index.html")
 		err := tpl.ExecuteTemplate(w, "index.html", nil)
 		if err != nil {
 			log.Println(err)
