@@ -44,6 +44,14 @@ func routes(c *config.Config) *chi.Mux {
 		http.ServeFile(w, r, "static/dist/tailwind.css")
 	})
 
+	r.Get("/view/styles.css", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/css/styles.css")
+	})
+
+	r.Get("/view/rocket.mp4", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/video/rocket.mp4")
+	})
+
 	return r
 }
 

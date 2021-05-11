@@ -1,5 +1,33 @@
 {{template "header"}}
+<div id="bg-video" class="absolute bg-black">
+  <video playsinline autoplay muted loop>
+    <source src="rocket.mp4" type="video/mp4" />
+  </video>
+</div>
 
-<h1>Index page with templates</h1>
+<div
+  id="name-title"
+  class="relative flex flex-col items-center justify-center min-h-screen text-center"
+>
+  <div
+    id="name"
+    class="text-6xl mb-2.5"
+    style="font-family: Nunito, sans-serif; font-weight: 600"
+  >
+    William Vandebelt
+  </div>
+
+  <div id="job-title" class="text-2xl" style="font-family: Roboto, sans-serif">
+    Software Engineer, Athlete & Traveler
+  </div>
+
+  <div id="social-icons" class="flex mt-8 gap-x-6">
+    <i class="fa fa-github fa-2x" aria-hidden="true"></i>
+    <i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i>
+    <i class="fa fa-envelope-o fa-2x" aria-hidden="true"></i>
+    <i class="fa fa-twitter fa-2x" aria-hidden="true"></i>
+  </div>
+</div>
+<div class="relative bg-black">This is other content</div>
 
 {{template "footer"}}
