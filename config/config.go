@@ -30,7 +30,7 @@ func New() *Config {
 		os.Getenv("LOG_LEVEL"),
 		os.Getenv("PORT"),
 		os.Getenv("NEW_RELIC_APP_NAME"),
-		os.Getenv("NEW_RELIC_LICENSE"),
+		os.Getenv("NEW_RELIC_LICENSE_KEY"),
 	}
 
 	AppConfig.Constants = constants
