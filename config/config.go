@@ -5,15 +5,19 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
+	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
 type Constants struct {
-	LogLevel string
-	Port     string
+	LogLevel        string
+	Port            string
+	NewRelicAppName string
+	NewRelicLicense string
 }
 
 type Config struct {
 	Constants
+	NewRelicApp *newrelic.Application
 }
 
 var AppConfig Config
@@ -25,9 +29,24 @@ func New() *Config {
 	constants := Constants{
 		os.Getenv("LOG_LEVEL"),
 		os.Getenv("PORT"),
+		os.Getenv("NEW_RELIC_APP_NAME"),
+		os.Getenv("NEW_RELIC_LICENSE"),
 	}
 
 	AppConfig.Constants = constants
+
+	// Initialize New Relic
+	app, err := newrelic.NewApplication(
+		newrelic.ConfigAppName(constants.NewRelicAppName),
+		newrelic.ConfigLicense(constants.NewRelicLicense),
+		newrelic.ConfigDistributedTracerEnabled(true),
+	)
+
+	if err != nil {
+		log.Printf("Error loading New Relic Config: %v\n", err)
+	}
+
+	AppConfig.NewRelicApp = app
 
 	return &AppConfig
 }

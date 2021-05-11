@@ -7,4 +7,5 @@ require (
 	github.com/go-chi/httplog v0.2.0
 	github.com/go-chi/render v1.0.1
 	github.com/joho/godotenv v1.3.0
+	github.com/newrelic/go-agent/v3 v3.12.0
 )

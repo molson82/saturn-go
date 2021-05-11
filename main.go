@@ -10,6 +10,7 @@ import (
 	"github.com/go-chi/render"
 	"github.com/molson82/saturn-go/config"
 	"github.com/molson82/saturn-go/controller"
+	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
 func routes(c *config.Config) *chi.Mux {
@@ -29,7 +30,7 @@ func routes(c *config.Config) *chi.Mux {
 		middleware.Recoverer)
 
 	r.Route("/view", func(r chi.Router) {
-		r.Mount("/index", controller.GetIndexPage(c))
+		r.Mount(newrelic.WrapHandle(c.NewRelicApp, "/index", controller.GetIndexPage(c)))
 	})
 
 	r.Route("/api", func(r chi.Router) {
