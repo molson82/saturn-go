@@ -17,7 +17,7 @@
     William Vandebelt
   </div>
 
-  <div id="job-title" class="text-2xl" style="font-family: Roboto, sans-serif">
+  <div id="job-title" class="text-2xl">
     Software Engineer, Athlete & Traveler
   </div>
 
@@ -32,7 +32,6 @@
 <div
   id="about-me"
   class="relative min-w-full px-6 text-2xl bg-white py-9 md:px-32 lg:px-48"
-  style="font-family: Roboto, sans-serif"
 >
   <p class="mb-6" style="font-weight: 600"><strong>Hey!</strong></p>
   <p>
@@ -46,12 +45,48 @@
 
 <div
   id="portfolio-title"
-  class="relative flex flex-col items-center py-16 text-4xl"
-  style="font-family: Roboto, sans-serif"
+  class="relative flex flex-col items-center py-16 text-4xl text-white bg-black"
+  style="background-image: url('star_banner.png');"
 >
   Portfolio
 </div>
 
-<div id="portfolio-body" class="relative h-40 bg-white"></div>
+<div id="portfolio-body" class="relative bg-white pt-11">
+  <div
+    class="text-2xl text-center"
+    style="font-family: Nunito, sans-serif; font-weight: 600"
+  >
+    My Top Projects
+  </div>
+  <div
+    class="flex flex-col items-center justify-center w-full px-6 pt-5 pb-5 gap-8 md:grid md:grid-cols-2 md:grid-rows-2 md:justify-items-center lg:flex lg:flex-row"
+  >
+    <div
+      class="text-white rounded-lg shadow-md md:justify-self-end"
+      style="background-color: #0a74db; width: 22rem; height: 27.25rem"
+    >
+      <div class="text-xl" style="font-weight: 400">Togo</div>
+      <div class="">
+        Togo is a Progressive Web App (PWA) that focuses on helping users adopt
+        dogs as well as keep a centralized profile about their new or existing
+        dogs.
+      </div>
+    </div>
+    <div
+      class="rounded-lg shadow-md md:justify-self-start"
+      style="background-color: #e91425; width: 22rem; height: 27.25rem"
+    >
+      card
+    </div>
+    <div
+      class="rounded-lg shadow-md md:col-span-2 lg:col-span-1"
+      style="background-color: #1b4d7b; width: 22rem; height: 27.25rem"
+    >
+      card
+    </div>
+  </div>
+</div>
+
+<div class="h-64 bg-white">more content</div>
 
 {{template "footer"}}
