@@ -61,6 +61,10 @@ func routes(c *config.Config) *chi.Mux {
 		http.ServeFile(w, r, "static/images/togo_icon.png")
 	})
 
+	r.Get("/view/rocket.gif", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/video/rocket.gif")
+	})
+
 	return r
 }
 
