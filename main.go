@@ -41,29 +41,29 @@ func routes(c *config.Config) *chi.Mux {
 		http.Redirect(w, r, "/view/index", http.StatusSeeOther)
 	})
 
-	r.Get("/view/tailwind.css", func(w http.ResponseWriter, r *http.Request) {
+	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/tailwind.css", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "static/dist/tailwind.css")
-	})
+	}))
 
-	r.Get("/view/styles.css", func(w http.ResponseWriter, r *http.Request) {
+	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/styles.css", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "static/css/styles.css")
-	})
+	}))
 
-	r.Get("/view/rocket.mp4", func(w http.ResponseWriter, r *http.Request) {
+	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/rocket.mp4", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "static/video/rocket.mp4")
-	})
+	}))
 
-	r.Get("/view/star_banner.png", func(w http.ResponseWriter, r *http.Request) {
+	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/star_banner.png", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "static/images/star_banner.png")
-	})
+	}))
 
-	r.Get("/view/togo_icon.png", func(w http.ResponseWriter, r *http.Request) {
+	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/togo_icon.png", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "static/images/togo_icon.png")
-	})
+	}))
 
-	r.Get("/view/rocket.gif", func(w http.ResponseWriter, r *http.Request) {
+	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/rocket.gif", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "static/video/rocket.gif")
-	})
+	}))
 
 	return r
 }
