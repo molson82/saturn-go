@@ -65,6 +65,22 @@ func routes(c *config.Config) *chi.Mux {
 		http.ServeFile(w, r, "static/video/rocket.gif")
 	}))
 
+	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/purdue_icon.png", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/images/purdue_icon.png")
+	}))
+
+	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/reify_icon.png", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/images/reify_icon.png")
+	}))
+
+	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/oracle_icon.png", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/images/oracle_icon.png")
+	}))
+
+	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/salesforce_icon.png", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/images/salesforce_icon.png")
+	}))
+
 	return r
 }
 
