@@ -1,5 +1,26 @@
 {{define "timeline"}}
 
-<div class="">This is the timeline body template</div>
+<div id="timeline-template" class="relative lg:w-3/4">
+  <!--virticle line-->
+  <div class="absolute top-0 bottom-0 w-2 bg-black left-1/2"></div>
+  <!--timeline card left-->
+  <div class="relative w-1/2 px-10 py-5">
+    <div class="absolute z-10 bg-blue-400 rounded-full w-14 h-14 -right-8 top-4"></div>
+    <div class="relative px-8 py-5 bg-white rounded-lg shadow-lg">
+      <h2>2017</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, ad dfd dsla</p>
+    </div>
+  </div>
+  <!--end left timeline card-->
+  <!--time card right-->
+  <div class="relative w-1/2 py-8 pl-12 pr-10 left-1/2">
+    <div class="absolute z-10 bg-blue-400 rounded-full -left-6 w-14 h-14 -right-8 top-7"></div>
+    <div class="relative px-8 py-5 bg-white rounded-lg shadow-lg">
+      <h2>2017</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, ad dfd dsla</p>
+    </div>
+  </div>
+	<!--end right time card-->
+</div>
 
 {{ end }}
