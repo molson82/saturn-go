@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"net/http"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -41,49 +42,7 @@ func routes(c *config.Config) *chi.Mux {
 		http.Redirect(w, r, "/view/index", http.StatusSeeOther)
 	})
 
-	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/tailwind.css", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/dist/tailwind.css")
-	}))
-
-	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/styles.css", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/css/styles.css")
-	}))
-
-	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/rocket.mp4", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/video/rocket.mp4")
-	}))
-
-	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/star_banner.png", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/images/star_banner.png")
-	}))
-
-	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/togo_icon.png", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/images/togo_icon.png")
-	}))
-
-	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/rocket.gif", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/video/rocket.gif")
-	}))
-
-	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/purdue_icon.png", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/images/purdue_icon.png")
-	}))
-
-	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/reify_icon.png", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/images/reify_icon.png")
-	}))
-
-	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/oracle_icon.png", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/images/oracle_icon.png")
-	}))
-
-	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/salesforce_icon.png", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/images/salesforce_icon.png")
-	}))
-
-	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/europa_react_logo.png", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/images/europa_react_logo.png")
-	}))
+	r.Mount("/static/", http.StripPrefix(strings.TrimRight("/static/", "/"), http.FileServer(http.Dir("./static"))))
 
 	return r
 }
