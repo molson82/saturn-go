@@ -81,6 +81,10 @@ func routes(c *config.Config) *chi.Mux {
 		http.ServeFile(w, r, "static/images/salesforce_icon.png")
 	}))
 
+	r.Get(newrelic.WrapHandleFunc(c.NewRelicApp, "/view/europa_react_logo.png", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/images/europa_react_logo.png")
+	}))
+
 	return r
 }
 
