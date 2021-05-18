@@ -3,6 +3,7 @@ package model
 import (
 	"encoding/json"
 	"net/http"
+	"sort"
 	"time"
 
 	"github.com/molson82/saturn-go/config"
@@ -24,10 +25,22 @@ type Attributes struct {
 	Status      string      `json:"status"`
 	PublishedAt time.Time   `json:"published-at"`
 	ExpiresAt   interface{} `json:"expires-at"`
-	Fields      struct {
-		Title string `json:"title"`
-		Body  string `json:"body"`
-	} `json:"fields"`
+	Fields      `json:"fields"`
+}
+
+type Fields struct {
+	Title           string `json:"title"`
+	Body            string `json:"body"`
+	Order           int    `json:"order"`
+	BackgroundColor string `json:"backgroundcolor"`
+	ButtonText      string `json:"buttontext"`
+	ButtonLink      string `json:"buttonlink"`
+	CardIcon        struct {
+		Title       string `json:"title"`
+		ContentType string `json:"content-type"`
+		FileSize    int    `json:"file-size"`
+		Url         string `json:"url"`
+	} `json:"cardicon"`
 }
 
 type Relationships struct {
@@ -77,6 +90,9 @@ func GetAllProjectCards(c *config.Config) ([]ProjectCard, error) {
 	if err != nil {
 		return []ProjectCard{}, err
 	}
+	sort.Slice(apiResp.Data, func(p, q int) bool {
+		return apiResp.Data[p].Attributes.Fields.Order < apiResp.Data[q].Attributes.Fields.Order
+	})
 
 	return apiResp.Data, nil
 }

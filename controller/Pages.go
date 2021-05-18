@@ -6,6 +6,7 @@ import (
 
 	"github.com/go-chi/httplog"
 	"github.com/molson82/saturn-go/config"
+	"github.com/molson82/saturn-go/model"
 )
 
 func getTemplate(fm template.FuncMap, name string) *template.Template {
@@ -25,7 +26,13 @@ func GetIndexPage(c *config.Config) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		logUtil := httplog.LogEntry(r.Context())
 		tpl := getTemplate(template.FuncMap{}, "index.html")
-		err := tpl.ExecuteTemplate(w, "index.html", nil)
+
+		cards, err := model.GetAllProjectCards(c)
+		logUtil.Err(err)
+		handleError(w, err)
+		err = tpl.ExecuteTemplate(w, "index.html", struct {
+			ProjectCards interface{}
+		}{cards})
 
 		logUtil.Err(err)
 		handleError(w, err)

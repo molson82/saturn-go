@@ -54,71 +54,9 @@
   <div
     class="flex flex-col items-center justify-center w-full px-6 pt-5 pb-5 gap-8 md:grid md:grid-cols-2 md:grid-rows-2 md:justify-items-center lg:flex lg:flex-row"
   >
-    <div
-      class="p-4 text-white rounded-lg shadow-md grid md:justify-self-end"
-      style="background-color: #0a74db; max-width: 22rem; min-height: 27.25rem"
-    >
-      <div class="flex justify-center w-full h-20">
-        <img width="80" src="/static/images/togo_icon.png" />
-      </div>
-      <div class="text-xl" style="font-weight: 400">Togo</div>
-      <div class="">
-        Togo is a Progressive Web App (PWA) that focuses on helping users adopt dogs as well as keep a centralized
-        profile about their new or existing dogs. Features include: Searching adoptable dogs near you, finding dog parks
-        near you, finding local vets, creating personal dog profiles with breed charts, and much more to come. The app
-        is mobile only and still in active development.
-      </div>
-      <div
-        class="flex items-center self-end justify-center mt-4 text-sm w-44 h-7 justify-self-center rounded-2xl"
-        style="background-color: #4d4d4d"
-      >
-        <a href="https://stackshare.io/wvandebe/togo-dev" target="_blank" rel="noopener">Project Tech Stack</a>
-      </div>
-    </div>
-
-    <div
-      class="p-4 text-white rounded-lg shadow-md grid md:justify-self-end"
-      style="background-color: #772ce8; max-width: 22rem; min-height: 27.25rem"
-    >
-      <div class="flex justify-center w-full h-20 text-black">
-        <i class="fa fa-twitch fa-5x" aria-hidden="true"></i>
-      </div>
-      <div class="text-xl" style="font-weight: 400">Twitch Streamer</div>
-      <div class="">
-        Twitch is a live stream service that caters to a wide varitey of content. Users of the platform will tune into
-        "Streamers" they follow or subscribe to and enjoy real live content. I focus on programming and working on my
-        side projects. I try to stream when I can, and always enjoy new viewers who wish to learn things with me. Click
-        the link below to find out more.
-      </div>
-      <div
-        class="flex items-center self-end justify-center mt-4 text-sm w-44 h-7 justify-self-center rounded-2xl"
-        style="background-color: #4d4d4d"
-      >
-        <a href="https://www.twitch.tv/molson82/about" target="_blank" rel="noopener">Twitch Channel</a>
-      </div>
-    </div>
-
-    <div
-      class="p-4 text-white rounded-lg shadow-md grid md:col-span-2 lg:col-span-1"
-      style="background-color: #1b4d7b; max-width: 22rem; min-height: 27.25rem"
-    >
-      <div class="flex justify-center w-full h-20">
-        <img src="/static/images/europa_react_logo.png" alt="" width="80" />
-      </div>
-      <div class="text-xl" style="font-weight: 400">Europa</div>
-      <div class="">
-        Europa is a React.js app with a Golang backend. It is a PWA that allows users to post blog entries using
-        built-in templates, log and share events, and more. The main objective of this app was for my family and I to
-        have one central location to update each other on our lives. Share events, stories, pictures and comment. This
-        app is mobile only and still in active development.
-      </div>
-      <div
-        class="flex items-center self-end justify-center mt-4 text-sm w-44 h-7 justify-self-center rounded-2xl"
-        style="background-color: #4d4d4d"
-      >
-        <a href="https://stackshare.io/wvandebe/europa-reactjs" target="_blank" rel="noopener">Project Tech Stack</a>
-      </div>
-    </div>
+    {{range $i, $v := .ProjectCards}}
+	    {{template "projectCard" $v}}
+    {{ end }}
   </div>
 </div>
 
