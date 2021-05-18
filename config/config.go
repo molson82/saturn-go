@@ -13,6 +13,8 @@ type Constants struct {
 	Port            string
 	NewRelicAppName string
 	NewRelicLicense string
+	ElegantCMSToken string
+	ElegantCMSUrl   string
 }
 
 type Config struct {
@@ -31,6 +33,8 @@ func New() *Config {
 		os.Getenv("PORT"),
 		os.Getenv("NEW_RELIC_APP_NAME"),
 		os.Getenv("NEW_RELIC_LICENSE_KEY"),
+		os.Getenv("ELEGANT_CMS_TOKEN"),
+		os.Getenv("ELEGANT_CMS_URL"),
 	}
 
 	AppConfig.Constants = constants
