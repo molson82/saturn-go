@@ -28,34 +28,36 @@ type AboutMeAttributes struct {
 }
 
 type AboutMeFields struct {
-	Title string `json:"title"`
-	Body  string `json:"body"`
+	Title     string `json:"title"`
+	BodyLine1 string `json:"bodyline1"`
+	BodyLine2 string `json:"bodyline2"`
+	BodyLine3 string `json:"bodyline3"`
 }
 
 type AboutMeAPIResp struct {
 	Data []AboutMe `json:"data"`
 }
 
-func GetAllAboutMeContent(c *config.Config) ([]AboutMe, error) {
+func GetAllAboutMeContent(c *config.Config) (AboutMe, error) {
 	url := c.Constants.ElegantCMSUrl + "?filter%5Btype%5D=about-me"
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		return []AboutMe{}, err
+		return AboutMe{}, err
 	}
 
 	req.Header.Add("Authorization", "Token token="+c.Constants.ElegantCMSToken)
 
 	res, err := http.DefaultClient.Do(req)
 	if err != nil {
-		return []AboutMe{}, err
+		return AboutMe{}, err
 	}
 	defer res.Body.Close()
 
 	var apiResp AboutMeAPIResp
 	err = json.NewDecoder(res.Body).Decode(&apiResp)
 	if err != nil {
-		return []AboutMe{}, err
+		return AboutMe{}, err
 	}
 
-	return apiResp.Data, nil
+	return apiResp.Data[0], nil
 }
