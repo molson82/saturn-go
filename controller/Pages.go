@@ -35,10 +35,15 @@ func GetIndexPage(c *config.Config) http.HandlerFunc {
 		logUtil.Err(err)
 		handleError(w, err)
 
+		timelineCards, err := model.GetAlltimelineCards(c)
+		logUtil.Err(err)
+		handleError(w, err)
+
 		err = tpl.ExecuteTemplate(w, "index.html", struct {
-			ProjectCards interface{}
-			AboutMe      interface{}
-		}{cards, aboutMe})
+			ProjectCards  interface{}
+			AboutMe       interface{}
+			TimeLineCards interface{}
+		}{cards, aboutMe, timelineCards})
 
 		logUtil.Err(err)
 		handleError(w, err)
