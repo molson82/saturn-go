@@ -15,20 +15,20 @@ type ProjectCard struct {
 	Links struct {
 		Self string `json:"self"`
 	} `json:"links"`
-	Attributes    `json:"attributes"`
-	Relationships `json:"relationships"`
-	Meta          `json:"meta"`
+	ProjectCardAttributes `json:"attributes"`
+	Relationships         `json:"relationships"`
+	Meta                  `json:"meta"`
 }
 
-type Attributes struct {
-	Title       string      `json:"title"`
-	Status      string      `json:"status"`
-	PublishedAt time.Time   `json:"published-at"`
-	ExpiresAt   interface{} `json:"expires-at"`
-	Fields      `json:"fields"`
+type ProjectCardAttributes struct {
+	Title             string      `json:"title"`
+	Status            string      `json:"status"`
+	PublishedAt       time.Time   `json:"published-at"`
+	ExpiresAt         interface{} `json:"expires-at"`
+	ProjectCardFields `json:"fields"`
 }
 
-type Fields struct {
+type ProjectCardFields struct {
 	Title           string `json:"title"`
 	Body            string `json:"body"`
 	Order           int    `json:"order"`
@@ -43,30 +43,7 @@ type Fields struct {
 	} `json:"cardicon"`
 }
 
-type Relationships struct {
-	App struct {
-		Links struct {
-			Self    string `json:"self"`
-			Related string `json:"related"`
-		} `json:"links"`
-	} `json:"app"`
-	ContentType struct {
-		Links struct {
-			Self    string `json:"self"`
-			Related string `json:"related"`
-		} `json:"links"`
-	} `json:"content-type"`
-}
-
-type Meta struct {
-	UpdatedAt string      `json:"updated_at"`
-	CreatedAt string      `json:"created_at"`
-	UpdatedBy interface{} `json:"updated_by"`
-	CreatedBy string      `json:"created_by"`
-	Version   int         `json:"version"`
-}
-
-type APIResp struct {
+type ProjectCardAPIResp struct {
 	Data []ProjectCard `json:"data"`
 }
 
@@ -85,13 +62,13 @@ func GetAllProjectCards(c *config.Config) ([]ProjectCard, error) {
 	}
 	defer res.Body.Close()
 
-	var apiResp APIResp
+	var apiResp ProjectCardAPIResp
 	err = json.NewDecoder(res.Body).Decode(&apiResp)
 	if err != nil {
 		return []ProjectCard{}, err
 	}
 	sort.Slice(apiResp.Data, func(p, q int) bool {
-		return apiResp.Data[p].Attributes.Fields.Order < apiResp.Data[q].Attributes.Fields.Order
+		return apiResp.Data[p].ProjectCardAttributes.ProjectCardFields.Order < apiResp.Data[q].ProjectCardAttributes.ProjectCardFields.Order
 	})
 
 	return apiResp.Data, nil

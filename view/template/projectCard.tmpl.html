@@ -1,29 +1,31 @@
 {{ define "projectCard" }}
 
 <div
-	{{if eq .Attributes.Fields.Order 3}}
-	class="p-4 text-white rounded-lg shadow-md grid md:col-span-2 lg:col-span-1"
-	{{else}}
+  {{if eq .ProjectCardAttributes.ProjectCardFields.Order 3}}
+  class="p-4 text-white rounded-lg shadow-md grid md:col-span-2 lg:col-span-1"
+  {{else}}
   class="p-4 text-white rounded-lg shadow-md grid"
-	{{end}}
-  style="background-color: {{ .Attributes.Fields.BackgroundColor }}; max-width: 22rem; min-height: 27.25rem"
+  {{end}}
+  style="background-color: {{ .ProjectCardAttributes.ProjectCardFields.BackgroundColor }}; max-width: 22rem; min-height: 27.25rem"
 >
   <div class="flex justify-center w-full h-20 text-black">
-    {{if eq .Attributes.Title "Twitch Streamer"}}
+    {{if eq .ProjectCardAttributes.Title "Twitch Streamer"}}
     <i class="fa fa-twitch fa-5x" aria-hidden="true"></i>
     {{else}}
-    <img width="80" src="{{ .Attributes.Fields.CardIcon.Url }}" />
+    <img width="80" src="{{ .ProjectCardAttributes.ProjectCardFields.CardIcon.Url }}" />
     {{ end }}
   </div>
-  <div class="text-xl" style="font-weight: 400">{{ .Attributes.Fields.Title }}</div>
+  <div class="text-xl" style="font-weight: 400">{{ .ProjectCardAttributes.ProjectCardFields.Title }}</div>
   <div class="">
-    {{ .Attributes.Fields.Body }}
+    {{ .ProjectCardAttributes.ProjectCardFields.Body }}
   </div>
   <div
     class="flex items-center self-end justify-center mt-4 text-sm w-44 h-7 justify-self-center rounded-2xl"
     style="background-color: #4d4d4d"
   >
-    <a href="{{ .Attributes.Fields.ButtonLink }}" target="_blank" rel="noopener">{{ .Attributes.Fields.ButtonText }}</a>
+    <a href="{{ .ProjectCardAttributes.ProjectCardFields.ButtonLink }}" target="_blank" rel="noopener">
+      {{ .ProjectCardAttributes.ProjectCardFields.ButtonText }}
+    </a>
   </div>
 </div>
 {{ end }}
