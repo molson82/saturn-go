@@ -42,7 +42,7 @@ func routes(c *config.Config) *chi.Mux {
 		http.Redirect(w, r, "/view/index", http.StatusSeeOther)
 	})
 
-	r.Mount("/static/", http.StripPrefix(strings.TrimRight("/static/", "/"), http.FileServer(http.Dir("./static"))))
+	r.Mount(newrelic.WrapHandle(c.NewRelicApp, "/static/", http.StripPrefix(strings.TrimRight("/static/", "/"), http.FileServer(http.Dir("./static")))))
 
 	return r
 }
