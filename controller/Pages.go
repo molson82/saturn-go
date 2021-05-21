@@ -25,7 +25,7 @@ func handleError(w http.ResponseWriter, err error) {
 func GetIndexPage(c *config.Config) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		logUtil := httplog.LogEntry(r.Context())
-		tpl := getTemplate(template.FuncMap{}, "index.html")
+		tpl := getTemplate(template.FuncMap{"mod": func(a, b int) int { return a % b }}, "index.html")
 
 		cards, err := model.GetAllProjectCards(c)
 		logUtil.Err(err)

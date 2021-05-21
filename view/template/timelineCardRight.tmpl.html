@@ -2,17 +2,17 @@
 <div class="relative w-full py-8 pl-12 pr-14 md:pr-10 md:w-1/2 left-8 md:left-1/2">
   <!--circle-->
   <div
-    class="absolute z-10 flex items-center pl-2 rounded-full -left-6 w-14 h-14 top-7"
-    style="background-color: #0f3647"
+    class="absolute z-10 flex items-center rounded-full -left-6 w-14 h-14 top-7"
+    style="background-color: {{.BackgroundColor}}; padding: {{.ImagePadding}}"
   >
-    <img src="/static/images/reify_icon.png" width="70%" alt="" />
+    <img src="{{.CardIcon.Url}}" width="{{.Width}}%" alt="" />
   </div>
   <!--end circle-->
   <!--card content-->
   <div class="relative px-8 pt-5 pb-2 bg-white rounded-lg shadow-lg">
-    <div class="text-2xl">Reify Health, Inc.</div>
-    <div class="pt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, ad dfd dsla</div>
-    <div class="pt-2 text-sm text-right text-gray-500">Summer 2016</div>
+    <div class="text-2xl">{{.Title}}</div>
+    <div class="pt-4">{{.Body}}</div>
+    <div class="pt-2 text-sm text-right text-gray-500">{{.Date}}</div>
   </div>
   <!--end card content-->
 </div>

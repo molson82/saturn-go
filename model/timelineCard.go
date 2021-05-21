@@ -35,6 +35,7 @@ type TimelineCardFields struct {
 	Date            string `json:"date"`
 	Order           int    `json:"order"`
 	Width           string `json:"width"`
+	ImagePadding    string `json:"imagepadding"`
 	CardIcon        struct {
 		Title       string `json:"title"`
 		ContentType string `json:"content-type"`
