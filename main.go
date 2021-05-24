@@ -35,7 +35,7 @@ func routes(c *config.Config) *chi.Mux {
 	})
 
 	r.Route("/api", func(r chi.Router) {
-
+		r.Mount(newrelic.WrapHandle(c.NewRelicApp, "/callback", controller.CallbackRoutes(c)))
 	})
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {

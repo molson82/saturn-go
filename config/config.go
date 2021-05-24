@@ -15,6 +15,7 @@ type Constants struct {
 	NewRelicLicense string
 	ElegantCMSToken string
 	ElegantCMSUrl   string
+	TwitchClientId  string
 }
 
 type Config struct {
@@ -35,6 +36,7 @@ func New() *Config {
 		os.Getenv("NEW_RELIC_LICENSE_KEY"),
 		os.Getenv("ELEGANT_CMS_TOKEN"),
 		os.Getenv("ELEGANT_CMS_URL"),
+		os.Getenv("TWITCH_CLIENT_ID"),
 	}
 
 	AppConfig.Constants = constants
