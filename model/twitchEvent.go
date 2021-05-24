@@ -1,6 +1,13 @@
 package model
 
-import "time"
+import (
+	"context"
+	"time"
+
+	"github.com/molson82/saturn-go/config"
+	"golang.org/x/oauth2/clientcredentials"
+	"golang.org/x/oauth2/twitch"
+)
 
 type TwitchEvent struct {
 	Subscription struct {
@@ -26,4 +33,19 @@ type TwitchEvent struct {
 		Type                 string    `json:"type"`
 		StartedAt            time.Time `json:"started_at"`
 	} `json:"event"`
+}
+
+func GetOAuthAccessToken(c *config.Config) (string, error) {
+	oauth2Config := &clientcredentials.Config{
+		ClientID:     c.Constants.TwitchClientId,
+		ClientSecret: c.Constants.TwitchClientSecret,
+		TokenURL:     twitch.Endpoint.TokenURL,
+	}
+
+	token, err := oauth2Config.Token(context.Background())
+	if err != nil {
+		return "", err
+	}
+
+	return token.AccessToken, nil
 }
