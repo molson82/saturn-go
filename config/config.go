@@ -9,13 +9,14 @@ import (
 )
 
 type Constants struct {
-	LogLevel        string
-	Port            string
-	NewRelicAppName string
-	NewRelicLicense string
-	ElegantCMSToken string
-	ElegantCMSUrl   string
-	TwitchClientId  string
+	LogLevel           string
+	Port               string
+	NewRelicAppName    string
+	NewRelicLicense    string
+	ElegantCMSToken    string
+	ElegantCMSUrl      string
+	TwitchClientId     string
+	TwitchClientSecret string
 }
 
 type Config struct {
@@ -37,6 +38,7 @@ func New() *Config {
 		os.Getenv("ELEGANT_CMS_TOKEN"),
 		os.Getenv("ELEGANT_CMS_URL"),
 		os.Getenv("TWITCH_CLIENT_ID"),
+		os.Getenv("TWITCH_CLIENT_SECRET"),
 	}
 
 	AppConfig.Constants = constants
