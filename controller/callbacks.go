@@ -13,7 +13,7 @@ import (
 
 func CallbackRoutes(c *config.Config) *chi.Mux {
 	router := chi.NewRouter()
-	router.Get("/twitch-online", notifyTwitchOnline(c))
+	router.Post("/twitch-online", notifyTwitchOnline(c))
 
 	return router
 }
