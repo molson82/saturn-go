@@ -64,6 +64,13 @@ func notifyTwitchOffline(c *config.Config) http.HandlerFunc {
 			return
 		}
 
+		err = c.Redis.Set(context.Background(), "twitch-status", "offline", 0).Err()
+		if err != nil {
+			logUtil.Info().Msg("Error setting redis key")
+			logUtil.Err(err)
+			return
+		}
+
 		logUtil.Info().Msg("Verify Sig success. Respond to callback")
 
 		w.Write([]byte(tevt.Challenge))
