@@ -30,4 +30,15 @@ function notifyOffline() {
   document.querySelector("#twitch-live-pill").classList.replace("block", "hidden");
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector("#slideMenuArrow").addEventListener("click", () => {
+    const slideMenu = document.querySelector("#slideMenu");
+    if (slideMenu.classList.contains("slideHover")) {
+      slideMenu.classList.remove("slideHover");
+    } else {
+      slideMenu.classList.add("slideHover");
+    }
+  });
+});
+
 getTwitchStatus();
