@@ -28,7 +28,7 @@ func notifyTwitchOnline(c *config.Config) http.HandlerFunc {
 		err := render.DecodeJSON(r.Body, &vobj)
 		if err != nil {
 			logUtil.Info().Msg("Error reading in request body")
-			render.JSON(w, r, http.StatusInternalServerError)
+			logUtil.Err(err)
 			return
 		}
 
@@ -48,8 +48,8 @@ func notifyTwitchOnline(c *config.Config) http.HandlerFunc {
 func notifyTwitchOffline(c *config.Config) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		logUtil := httplog.LogEntry(r.Context())
-
 		logUtil.Info().Msg("Twitch user went offline. Sending notification.")
+
 		var tevt model.TwitchEvent
 		err := render.DecodeJSON(r.Body, &tevt)
 		if err != nil {
@@ -59,5 +59,8 @@ func notifyTwitchOffline(c *config.Config) http.HandlerFunc {
 		}
 
 		logUtil.Info().Msg(fmt.Sprintf("Response: %v\n", tevt))
+
+		logUtil.Info().Msg("Verify Sig success. Respond to callback")
+		w.Write([]byte(tevt.Challenge))
 	}
 }
