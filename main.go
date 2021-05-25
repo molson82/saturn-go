@@ -11,7 +11,6 @@ import (
 	"github.com/go-chi/render"
 	"github.com/molson82/saturn-go/config"
 	"github.com/molson82/saturn-go/controller"
-	"github.com/molson82/saturn-go/model"
 	"github.com/newrelic/go-agent/v3/newrelic"
 )
 
@@ -52,8 +51,8 @@ func main() {
 	config := config.New()
 	router := routes(config)
 
-	token, _ := model.GetOAuthAccessToken(config)
-	log.Printf("Token: %v", token)
+	//token, _ := model.GetOAuthAccessToken(config)
+	//log.Printf("Token: %v", token)
 
 	port := config.Constants.Port
 	log.Printf("PORT: %v\n", port)

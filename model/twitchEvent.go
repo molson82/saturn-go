@@ -2,6 +2,12 @@ package model
 
 import (
 	"context"
+	"crypto/hmac"
+	"crypto/sha256"
+	"encoding/hex"
+	"errors"
+	"io/ioutil"
+	"net/http"
 	"time"
 
 	"github.com/molson82/saturn-go/config"
@@ -48,4 +54,22 @@ func GetOAuthAccessToken(c *config.Config) (string, error) {
 	}
 
 	return token.AccessToken, nil
+}
+
+func VerifySig(c *config.Config, r *http.Request) (bool, error) {
+	rBody, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		return false, err
+	}
+	hmacMessage := r.Header.Get("Twitch-Eventsub-Message-Id") + r.Header.Get("Twitch-Eventsub-Message-Timestamp") + string(rBody)
+	signature := hmac.New(sha256.New, []byte(c.Constants.TwitchClientSecret))
+	signature.Write([]byte(hmacMessage))
+
+	sha := hex.EncodeToString(signature.Sum(nil))
+
+	if r.Header.Get("Twitch-Eventsub-Message-Signature") == sha {
+		return true, nil
+	}
+
+	return false, errors.New("403 forbidden")
 }
