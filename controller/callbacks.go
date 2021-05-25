@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"fmt"
+	"context"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -38,9 +38,15 @@ func notifyTwitchOnline(c *config.Config) http.HandlerFunc {
 		//return
 		//}
 
-		logUtil.Info().Msg(fmt.Sprintf("Request Body: %v", vobj))
+		err = c.Redis.Set(context.Background(), "twitch-status", "online", 0).Err()
+		if err != nil {
+			logUtil.Info().Msg("Error setting redis key")
+			logUtil.Err(err)
+			return
+		}
 
 		logUtil.Info().Msg("Verify Sig success. Respond to callback")
+
 		w.Write([]byte(vobj.Challenge))
 	}
 }
@@ -58,9 +64,8 @@ func notifyTwitchOffline(c *config.Config) http.HandlerFunc {
 			return
 		}
 
-		logUtil.Info().Msg(fmt.Sprintf("Response: %v\n", tevt))
-
 		logUtil.Info().Msg("Verify Sig success. Respond to callback")
+
 		w.Write([]byte(tevt.Challenge))
 	}
 }

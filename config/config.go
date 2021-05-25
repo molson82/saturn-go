@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/go-redis/redis/v8"
 	"github.com/joho/godotenv"
 	"github.com/newrelic/go-agent/v3/newrelic"
 )
@@ -17,11 +18,13 @@ type Constants struct {
 	ElegantCMSUrl      string
 	TwitchClientId     string
 	TwitchClientSecret string
+	RedisURL           string
 }
 
 type Config struct {
 	Constants
 	NewRelicApp *newrelic.Application
+	Redis       *redis.Client
 }
 
 var AppConfig Config
@@ -39,6 +42,7 @@ func New() *Config {
 		os.Getenv("ELEGANT_CMS_URL"),
 		os.Getenv("TWITCH_CLIENT_ID"),
 		os.Getenv("TWITCH_CLIENT_SECRET"),
+		os.Getenv("REDIS_URL"),
 	}
 
 	AppConfig.Constants = constants
@@ -55,6 +59,17 @@ func New() *Config {
 	}
 
 	AppConfig.NewRelicApp = app
+
+	// initialize Redis connection
+	opt, err := redis.ParseURL(constants.RedisURL)
+	if err != nil {
+		log.Printf("Error connecting to Redis: %v\n", err)
+	}
+	redisClient := redis.NewClient(opt)
+
+	AppConfig.Redis = redisClient
+
+	log.Printf("Redis connected\n")
 
 	return &AppConfig
 }
