@@ -6,6 +6,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"time"
@@ -67,7 +68,7 @@ func VerifySig(c *config.Config, r *http.Request) (bool, error) {
 
 	sha := hex.EncodeToString(signature.Sum(nil))
 
-	if r.Header.Get("Twitch-Eventsub-Message-Signature") == sha {
+	if r.Header.Get("Twitch-Eventsub-Message-Signature") == fmt.Sprintf("sha256=%v", sha) {
 		return true, nil
 	}
 
