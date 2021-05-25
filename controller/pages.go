@@ -40,12 +40,28 @@ func GetIndexPage(c *config.Config) http.HandlerFunc {
 		handleError(w, err)
 
 		err = tpl.ExecuteTemplate(w, "index.html", struct {
+			Page          string
 			ProjectCards  interface{}
 			AboutMe       interface{}
 			TimeLineCards interface{}
-		}{cards, aboutMe, timelineCards})
+		}{"index", cards, aboutMe, timelineCards})
 
 		logUtil.Err(err)
 		handleError(w, err)
+	}
+}
+
+func GetBlogPage(c *config.Config) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		logUtil := httplog.LogEntry(r.Context())
+		tpl := getTemplate(template.FuncMap{"mod": func(a, b int) int { return a % b }}, "blog.html")
+
+		err := tpl.ExecuteTemplate(w, "blog.html", struct {
+			Page string
+		}{"blog"})
+
+		logUtil.Err(err)
+		handleError(w, err)
+
 	}
 }

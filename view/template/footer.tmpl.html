@@ -27,9 +27,15 @@
     </div>
     <div id="site-map" class="pt-6 pb-8 md:justify-self-center md:pt-0">
       <div class="text-2xl" style="font-weight: 400">Site Map</div>
+			{{ if eq . "index" }}
       <div class="pt-3 font-semibold"><a href="#about-me" class="text-blue-400">About Me</a></div>
       <div class="pt-2 font-semibold lg:pt-0"><a href="#portfolio-title" class="text-blue-400">Portfolio</a></div>
-      <div class="pt-2 font-semibold lg:pt-0">Blog</div>
+			<div class="pt-2 font-semibold lg:pt-0"><a href="/view/blog" class="text-blue-400">Blog</a></div>
+			{{ else }}
+			<div class="pt-3 font-semibold"><a href="/view/index#about-me" class="text-blue-400">About Me</a></div>
+      <div class="pt-2 font-semibold lg:pt-0"><a href="/view/index#portfolio-title" class="text-blue-400">Portfolio</a></div>
+			<div class="pt-2 font-semibold lg:pt-0"><a href="#blog" class="text-blue-400">Blog</a></div>
+			{{ end }}
     </div>
   </div>
   <div class="flex flex-wrap items-center self-end justify-center px-2 py-2 bg-black gap-4">
