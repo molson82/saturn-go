@@ -38,7 +38,7 @@ func notifyTwitchOnline(c *config.Config) http.HandlerFunc {
 		//return
 		//}
 		logUtil.Info().Msg("Verify Sig success. Respond to callback")
-		render.JSON(w, r, vobj.Challenge)
+		w.Write([]byte(vobj.Challenge))
 	}
 }
 
