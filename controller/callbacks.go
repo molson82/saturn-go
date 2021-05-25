@@ -37,6 +37,9 @@ func notifyTwitchOnline(c *config.Config) http.HandlerFunc {
 		//render.JSON(w, r, http.StatusForbidden)
 		//return
 		//}
+
+		logUtil.Info().Msg(fmt.Sprintf("Request Body: %v", vobj))
+
 		logUtil.Info().Msg("Verify Sig success. Respond to callback")
 		w.Write([]byte(vobj.Challenge))
 	}
