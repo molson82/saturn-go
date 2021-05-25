@@ -5,9 +5,9 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
@@ -58,8 +58,8 @@ func GetOAuthAccessToken(c *config.Config) (string, error) {
 	return token.AccessToken, nil
 }
 
-func VerifySig(c *config.Config, r *http.Request) (bool, error) {
-	rBody, err := ioutil.ReadAll(r.Body)
+func VerifySig(c *config.Config, r *http.Request, e TwitchEvent) (bool, error) {
+	rBody, err := json.Marshal(e)
 	if err != nil {
 		return false, err
 	}
