@@ -39,6 +39,11 @@ document.addEventListener("DOMContentLoaded", () => {
       slideMenu.classList.add("slideHover");
     }
   });
+
+  document.querySelector("#app").addEventListener("click", () => {
+    console.log("click app");
+    document.querySelector("#slideMenu").classList.remove("slideHover");
+  });
 });
 
 getTwitchStatus();
