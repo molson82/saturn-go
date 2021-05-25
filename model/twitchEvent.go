@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"time"
 
@@ -67,6 +68,8 @@ func VerifySig(c *config.Config, r *http.Request) (bool, error) {
 	signature.Write([]byte(hmacMessage))
 
 	sha := hex.EncodeToString(signature.Sum(nil))
+
+	log.Printf("sha: %v | header: %v", sha, r.Header.Get("Twitch-Eventsub-Message-Signature"))
 
 	if r.Header.Get("Twitch-Eventsub-Message-Signature") == fmt.Sprintf("sha256=%v", sha) {
 		return true, nil
