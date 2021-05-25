@@ -19,28 +19,28 @@ import (
 
 type TwitchEvent struct {
 	Subscription struct {
-		ID        string `json:"id"`
-		Type      string `json:"type"`
-		Version   string `json:"version"`
-		Status    string `json:"status"`
-		Cost      int    `json:"cost"`
+		ID        string `json:"id,omitempty"`
+		Type      string `json:"type,omitempty"`
+		Version   string `json:"version,omitempty"`
+		Status    string `json:"status,omitempty"`
+		Cost      int    `json:"cost,omitempty"`
 		Condition struct {
-			BroadcasterUserID string `json:"broadcaster_user_id"`
-		} `json:"condition"`
+			BroadcasterUserID string `json:"broadcaster_user_id,omitempty"`
+		} `json:"condition,omitempty"`
 		Transport struct {
-			Method   string `json:"method"`
-			Callback string `json:"callback"`
-		} `json:"transport"`
-		CreatedAt time.Time `json:"created_at"`
-	} `json:"subscription"`
+			Method   string `json:"method,omitempty"`
+			Callback string `json:"callback,omitempty"`
+		} `json:"transport,omitempty"`
+		CreatedAt time.Time `json:"created_at,omitempty"`
+	} `json:"subscription,omitempty"`
 	Event struct {
-		ID                   string    `json:"id"`
-		BroadcasterUserID    string    `json:"broadcaster_user_id"`
-		BroadcasterUserLogin string    `json:"broadcaster_user_login"`
-		BroadcasterUserName  string    `json:"broadcaster_user_name"`
-		Type                 string    `json:"type"`
-		StartedAt            time.Time `json:"started_at"`
-	} `json:"event"`
+		ID                   string    `json:"id,omitempty"`
+		BroadcasterUserID    string    `json:"broadcaster_user_id,omitempty"`
+		BroadcasterUserLogin string    `json:"broadcaster_user_login,omitempty"`
+		BroadcasterUserName  string    `json:"broadcaster_user_name,omitempty"`
+		Type                 string    `json:"type,omitempty"`
+		StartedAt            time.Time `json:"started_at,omitempty"`
+	} `json:"event,omitempty"`
 }
 
 func GetOAuthAccessToken(c *config.Config) (string, error) {
