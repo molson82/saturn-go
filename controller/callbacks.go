@@ -34,7 +34,7 @@ func notifyTwitchOnline(c *config.Config) http.HandlerFunc {
 
 		logUtil.Info().Msg(fmt.Sprintf("Response: %v\n", tevt))
 
-		if _, err := model.VerifySig(c, r); err != nil {
+		if _, err := model.VerifySig(c, r, tevt); err != nil {
 			logUtil.Info().Msg("Verify Sig failed. Return 403")
 			render.JSON(w, r, http.StatusForbidden)
 			return
