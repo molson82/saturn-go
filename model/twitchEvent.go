@@ -5,7 +5,6 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
@@ -58,12 +57,8 @@ func GetOAuthAccessToken(c *config.Config) (string, error) {
 	return token.AccessToken, nil
 }
 
-func VerifySig(c *config.Config, r *http.Request, e TwitchEvent) (bool, error) {
-	rBody, err := json.Marshal(e)
-	if err != nil {
-		return false, err
-	}
-	hmacMessage := r.Header.Get("Twitch-Eventsub-Message-Id") + r.Header.Get("Twitch-Eventsub-Message-Timestamp") + string(rBody)
+func VerifySig(c *config.Config, r *http.Request, e string) (bool, error) {
+	hmacMessage := r.Header.Get("Twitch-Eventsub-Message-Id") + r.Header.Get("Twitch-Eventsub-Message-Timestamp") + e
 	signature := hmac.New(sha256.New, []byte(c.Constants.TwitchClientSecret))
 	signature.Write([]byte(hmacMessage))
 

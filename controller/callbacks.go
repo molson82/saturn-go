@@ -1,7 +1,9 @@
 package controller
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -25,7 +27,8 @@ func notifyTwitchOnline(c *config.Config) http.HandlerFunc {
 
 		logUtil.Info().Msg("Twitch user went live. Sending notification.")
 		var tevt model.TwitchEvent
-		err := render.DecodeJSON(r.Body, &tevt)
+		rBody, err := ioutil.ReadAll(r.Body)
+		err = json.Unmarshal(rBody, &tevt)
 		if err != nil {
 			logUtil.Error().Msg("Error reading body from callback")
 			logUtil.Err(err)
@@ -34,7 +37,7 @@ func notifyTwitchOnline(c *config.Config) http.HandlerFunc {
 
 		logUtil.Info().Msg(fmt.Sprintf("Response: %v\n", tevt))
 
-		if _, err := model.VerifySig(c, r, tevt); err != nil {
+		if _, err := model.VerifySig(c, r, string(rBody)); err != nil {
 			logUtil.Info().Msg("Verify Sig failed. Return 403")
 			render.JSON(w, r, http.StatusForbidden)
 			return
