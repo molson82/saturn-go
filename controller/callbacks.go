@@ -24,7 +24,7 @@ func notifyTwitchOnline(c *config.Config) http.HandlerFunc {
 		logUtil := httplog.LogEntry(r.Context())
 		logUtil.Info().Msg("Twitch user went live. Sending notification.")
 
-		var vobj model.TwitchSubVerify
+		var vobj model.TwitchEvent
 		err := render.DecodeJSON(r.Body, &vobj)
 		if err != nil {
 			logUtil.Info().Msg("Error reading in request body")
