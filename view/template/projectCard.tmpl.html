@@ -8,7 +8,18 @@
   {{end}}
   style="background-color: {{ .ProjectCardAttributes.ProjectCardFields.BackgroundColor }}; max-width: 22rem; min-height: 27.25rem"
 >
-<div id="{{.ID}}" class="flex justify-center w-full h-20 text-black">
+  {{if eq .ProjectCardAttributes.Title "Twitch Streamer"}}
+  <a href="https://www.twitch.tv/molson82" target="_blank" rel="noopener">
+    <div
+      id="twitch-live-pill"
+      class="absolute flex items-center justify-center hidden w-16 bg-gray-600 border-2 border-black rounded-2xl"
+    >
+      <div class="w-3 h-3 bg-red-600 rounded-full"></div>
+      <div class="pl-1">Live</div>
+    </div>
+  </a>
+  {{ end }}
+  <div id="{{.ID}}" class="flex justify-center w-full h-20 text-black">
     {{if eq .ProjectCardAttributes.Title "Twitch Streamer"}}
     <i class="fa fa-twitch fa-5x" aria-hidden="true"></i>
     {{else}}
