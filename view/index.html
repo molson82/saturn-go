@@ -28,7 +28,7 @@
   </div>
 </div>
 
-<div id="about-me" class="relative min-w-full px-6 text-2xl bg-gray-100 py-9 md:px-32 lg:px-48">
+<div id="about-me" class="relative min-w-full px-6 text-2xl bg-gray-100 dark:bg-gray-700 dark:text-white py-9 md:px-32 lg:px-48">
   <p class="mb-6" style="font-weight: 600">
     <strong>{{.AboutMe.AboutMeAttributes.AboutMeFields.Title}}</strong>
   </p>
@@ -50,7 +50,7 @@
   Portfolio
 </div>
 
-<div id="portfolio-body" class="relative bg-gray-100 pt-11">
+<div id="portfolio-body" class="relative bg-gray-100 dark:bg-gray-700 dark:text-white pt-11">
   <div class="text-2xl text-center" style="font-family: Nunito, sans-serif; font-weight: 600">My Top Projects</div>
   <div
     class="flex flex-col items-center justify-center w-full px-6 pt-5 pb-5 gap-8 md:grid md:grid-cols-2 md:grid-rows-2 md:justify-items-center lg:flex lg:flex-row"
@@ -61,8 +61,8 @@
   </div>
 </div>
 
-<div id="timeline-body" class="relative pt-6 bg-gray-100">
-  <div class="text-2xl text-center" style="font-family: Nunito, sans-serif; font-weight: 600">Timeline</div>
+<div id="timeline-body" class="relative pt-6 bg-gray-100 dark:bg-gray-700">
+  <div class="text-2xl text-center dark:text-white" style="font-family: Nunito, sans-serif; font-weight: 600">Timeline</div>
   <div class="flex justify-center pt-5 pb-20">{{template "timeline" .TimeLineCards}}</div>
 </div>
 

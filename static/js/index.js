@@ -44,6 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("click app");
     document.querySelector("#slideMenu").classList.remove("slideHover");
   });
+
+  document.querySelector("#darkModeToggle").addEventListener("click", (e) => {
+    if (e.target.checked) {
+      document.querySelector("html").classList.add("dark");
+    } else {
+      document.querySelector("html").classList.remove("dark");
+    }
+  });
 });
 
 getTwitchStatus();
