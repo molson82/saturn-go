@@ -1,9 +1,7 @@
 package controller
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -24,26 +22,23 @@ func CallbackRoutes(c *config.Config) *chi.Mux {
 func notifyTwitchOnline(c *config.Config) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		logUtil := httplog.LogEntry(r.Context())
-
 		logUtil.Info().Msg("Twitch user went live. Sending notification.")
-		var tevt model.TwitchEvent
-		rBody, err := ioutil.ReadAll(r.Body)
-		err = json.Unmarshal(rBody, &tevt)
+
+		var vobj model.TwitchSubVerify
+		err := render.DecodeJSON(r.Body, &vobj)
 		if err != nil {
-			logUtil.Error().Msg("Error reading body from callback")
-			logUtil.Err(err)
+			logUtil.Info().Msg("Error reading in request body")
+			render.JSON(w, r, http.StatusInternalServerError)
 			return
 		}
 
-		logUtil.Info().Msg(fmt.Sprintf("Response: %v\n", tevt))
-
-		if _, err := model.VerifySig(c, r, string(rBody)); err != nil {
-			logUtil.Info().Msg("Verify Sig failed. Return 403")
-			render.JSON(w, r, http.StatusForbidden)
-			return
-		}
+		//if _, err := model.VerifySig(c, r, vobj); err != nil {
+		//logUtil.Info().Msg("Verify Sig failed. Return 403")
+		//render.JSON(w, r, http.StatusForbidden)
+		//return
+		//}
 		logUtil.Info().Msg("Verify Sig success. Respond to callback")
-		render.JSON(w, r, "challenge")
+		render.JSON(w, r, vobj.Challenge)
 	}
 }
 

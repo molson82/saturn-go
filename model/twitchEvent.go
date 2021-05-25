@@ -5,6 +5,7 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
@@ -42,6 +43,25 @@ type TwitchEvent struct {
 	} `json:"event,omitempty"`
 }
 
+type TwitchSubVerify struct {
+	Subscription struct {
+		ID        string `json:"id"`
+		Status    string `json:"status"`
+		Type      string `json:"type"`
+		Version   string `json:"version"`
+		Condition struct {
+			BroadcasterUserID string `json:"broadcaster_user_id"`
+		} `json:"condition"`
+		Transport struct {
+			Method   string `json:"method"`
+			Callback string `json:"callback"`
+		} `json:"transport"`
+		CreatedAt time.Time `json:"created_at"`
+		Cost      int       `json:"cost"`
+	} `json:"subscription"`
+	Challenge string `json:"challenge"`
+}
+
 func GetOAuthAccessToken(c *config.Config) (string, error) {
 	oauth2Config := &clientcredentials.Config{
 		ClientID:     c.Constants.TwitchClientId,
@@ -57,8 +77,9 @@ func GetOAuthAccessToken(c *config.Config) (string, error) {
 	return token.AccessToken, nil
 }
 
-func VerifySig(c *config.Config, r *http.Request, e string) (bool, error) {
-	hmacMessage := r.Header.Get("Twitch-Eventsub-Message-Id") + r.Header.Get("Twitch-Eventsub-Message-Timestamp") + e
+func VerifySig(c *config.Config, r *http.Request, e TwitchSubVerify) (bool, error) {
+	data, _ := json.Marshal(e)
+	hmacMessage := r.Header.Get("Twitch-Eventsub-Message-Id") + r.Header.Get("Twitch-Eventsub-Message-Timestamp") + string(data)
 	signature := hmac.New(sha256.New, []byte(c.Constants.TwitchClientSecret))
 	signature.Write([]byte(hmacMessage))
 
