@@ -23,7 +23,7 @@ video {
 }
 
 #slideMenu:hover,
-:focus {
+#slideMenu:focus {
   transform: translate3d(-11.5rem, 0, 0);
   animation: ease-in;
   transition: 1s;
