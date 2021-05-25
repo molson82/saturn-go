@@ -8,7 +8,7 @@
   {{end}}
   style="background-color: {{ .ProjectCardAttributes.ProjectCardFields.BackgroundColor }}; max-width: 22rem; min-height: 27.25rem"
 >
-  <div class="flex justify-center w-full h-20 text-black">
+<div id="{{.ID}}" class="flex justify-center w-full h-20 text-black">
     {{if eq .ProjectCardAttributes.Title "Twitch Streamer"}}
     <i class="fa fa-twitch fa-5x" aria-hidden="true"></i>
     {{else}}
