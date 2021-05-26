@@ -31,6 +31,12 @@ function notifyOffline() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const darkmode = localStorage.getItem("wv-site-darkmode");
+  if (darkmode === "true") {
+    document.querySelector("html").classList.add("dark");
+    document.querySelector("#darkModeToggle").checked = true;
+  }
+
   document.querySelector("#slideMenuArrow").addEventListener("click", () => {
     const slideMenu = document.querySelector("#slideMenu");
     if (slideMenu.classList.contains("slideHover")) {
@@ -48,8 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#darkModeToggle").addEventListener("click", (e) => {
     if (e.target.checked) {
       document.querySelector("html").classList.add("dark");
+      localStorage.setItem("wv-site-darkmode", "true");
     } else {
       document.querySelector("html").classList.remove("dark");
+      localStorage.setItem("wv-site-darkmode", "false");
     }
   });
 });
