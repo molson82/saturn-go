@@ -8,15 +8,19 @@
 >
   Blog Posts
 </div>
-<div class="flex justify-center pb-20 bg-gray-100 pt-11">
+<div class="flex justify-center px-6 pb-20 bg-gray-100 pt-11">
   {{range $i, $v := .BlogPosts}}
-  <div class="bg-white rounded-lg shadow-md" style="max-width: 28rem; min-height: 27.25rem">
-    <div class="w-full h-40 bg-black"></div>
-    <div class="p-4">
-      body the best sentence to write is a test sentence that doesn't mean anything. This is filler text to see how the
-      div looks when there is content in it. I wonder how it looks right now, since while I type this I can't refresh
-      the window to see the content render in. Well, now I'm about to render it.
+  <div class="w-full bg-white rounded-lg shadow-md grid grid-row-3 md:w-4/5" style="height: 27.25rem">
+    <div class="w-full h-40 bg-black rounded-t-lg">
+      <img class="rounded-t-lg" src="{{.CoverPhoto.Url}}" alt="" />
     </div>
+    <div class="p-4 overflow-hidden" style="height: 14.8rem">
+      <div class="text-2xl">{{ $v.Title }}</div>
+      <div class="pt-4">
+        {{ $v.Body }}
+      </div>
+    </div>
+    <div class="flex items-center justify-end w-full px-4 text-sm">{{ $v.Created }}</div>
   </div>
   {{ end }}
 </div>
