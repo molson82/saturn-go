@@ -8,10 +8,17 @@
 >
   Blog Posts
 </div>
-<div class="flex pb-20 pt-11">
-	{{range $i, $v := .BlogPosts}}
-	<p>{{$v.Title}}</p>
-	{{ end }}
+<div class="flex justify-center pb-20 bg-gray-100 pt-11">
+  {{range $i, $v := .BlogPosts}}
+  <div class="bg-white rounded-lg shadow-md" style="max-width: 28rem; min-height: 27.25rem">
+    <div class="w-full h-40 bg-black"></div>
+    <div class="p-4">
+      body the best sentence to write is a test sentence that doesn't mean anything. This is filler text to see how the
+      div looks when there is content in it. I wonder how it looks right now, since while I type this I can't refresh
+      the window to see the content render in. Well, now I'm about to render it.
+    </div>
+  </div>
+  {{ end }}
 </div>
 
 {{template "footer" .Page}}
