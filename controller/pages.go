@@ -56,9 +56,13 @@ func GetBlogPage(c *config.Config) http.HandlerFunc {
 		logUtil := httplog.LogEntry(r.Context())
 		tpl := getTemplate(template.FuncMap{"mod": func(a, b int) int { return a % b }}, "blog.html")
 
-		err := tpl.ExecuteTemplate(w, "blog.html", struct {
-			Page string
-		}{"blog"})
+		posts, err := model.GetAllBlogPosts(c)
+		logUtil.Err(err)
+
+		err = tpl.ExecuteTemplate(w, "blog.html", struct {
+			Page      string
+			BlogPosts interface{}
+		}{"blog", posts})
 
 		logUtil.Err(err)
 		handleError(w, err)
