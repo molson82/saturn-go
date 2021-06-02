@@ -4,6 +4,39 @@ const baseURL = window.location.origin;
 const options = {
   method: "GET",
 };
+let ws;
+
+function connectWS() {
+  if (ws) {
+    return false;
+  }
+
+  ws = new WebSocket("ws://localhost:8080/api/ws/twitch-status");
+  ws.onopen = () => {
+    console.log("OPEN");
+  };
+
+  ws.onclose = () => {
+    console.log("CLOSE");
+    ws = null;
+  };
+
+  ws.onmessage = (evt) => {
+    console.log("RESPONSE: " + evt.data);
+  };
+
+  ws.onerror = (evt) => {
+    console.log("ERROR: " + evt.data);
+  };
+
+  sendPing();
+}
+
+function sendPing() {
+  ws.send("ping ws");
+
+  setTimeout(sendPing, 1000 * 5);
+}
 
 function getTwitchStatus() {
   fetch(baseURL + "/api/redis/twitch-status", options)
@@ -31,6 +64,8 @@ function notifyOffline() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  connectWS();
+
   const darkmode = localStorage.getItem("wv-site-darkmode");
   if (darkmode === "true") {
     document.querySelector("html").classList.add("dark");
