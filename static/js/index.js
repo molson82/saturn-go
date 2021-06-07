@@ -11,9 +11,10 @@ function connectWS() {
     return false;
   }
 
-  ws = new WebSocket("ws://localhost:8080/api/ws/twitch-status");
+  ws = new WebSocket("ws://" + window.location.host + "/api/ws/twitch-status");
   ws.onopen = () => {
     console.log("OPEN");
+    sendPing();
   };
 
   ws.onclose = () => {
@@ -28,8 +29,6 @@ function connectWS() {
   ws.onerror = (evt) => {
     console.log("ERROR: " + evt.data);
   };
-
-  sendPing();
 }
 
 function sendPing() {
@@ -38,20 +37,20 @@ function sendPing() {
   setTimeout(sendPing, 1000 * 5);
 }
 
-function getTwitchStatus() {
-  fetch(baseURL + "/api/redis/twitch-status", options)
-    .then((response) => response.json())
-    .then((response) => {
-      console.log("res from fetch: " + response.twitchStatus);
-      if (response.twitchStatus === "online") {
-        notifyOnline();
-      } else {
-        notifyOffline();
-      }
-    });
+//function getTwitchStatus() {
+//fetch(baseURL + "/api/redis/twitch-status", options)
+//.then((response) => response.json())
+//.then((response) => {
+//console.log("res from fetch: " + response.twitchStatus);
+//if (response.twitchStatus === "online") {
+//notifyOnline();
+//} else {
+//notifyOffline();
+//}
+//});
 
-  setTimeout(getTwitchStatus, 1000 * 60);
-}
+////setTimeout(getTwitchStatus, 1000 * 60);
+//}
 
 function notifyOnline() {
   document.querySelector("#dbc5f9ab-ca75-4498-8ed9-741cc4531530").classList.replace("text-black", "flash-icon");
@@ -96,5 +95,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
-getTwitchStatus();
