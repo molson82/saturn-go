@@ -9,7 +9,7 @@
   style="background-color: {{ .ProjectCardAttributes.ProjectCardFields.BackgroundColor }}; max-width: 22rem; min-height: 27.25rem"
 >
   {{if eq .ProjectCardAttributes.Title "Twitch Streamer"}}
-  <a href="https://www.twitch.tv/molson82" target="_blank" rel="noopener">
+  <a aria-label="twitch channel link" href="https://www.twitch.tv/molson82" target="_blank" rel="noopener">
     <div
       id="twitch-live-pill"
       class="absolute flex items-center justify-center hidden w-16 bg-gray-600 border-2 border-black rounded-2xl"
@@ -23,7 +23,7 @@
     {{if eq .ProjectCardAttributes.Title "Twitch Streamer"}}
     <i class="fa fa-twitch fa-5x" aria-hidden="true"></i>
     {{else}}
-    <img width="80" src="{{ .ProjectCardAttributes.ProjectCardFields.CardIcon.Url }}" />
+    <img width="80" alt="project card icon" src="{{ .ProjectCardAttributes.ProjectCardFields.CardIcon.Url }}" />
     {{ end }}
   </div>
   <div class="text-xl" style="font-weight: 400">{{ .ProjectCardAttributes.ProjectCardFields.Title }}</div>

@@ -1,6 +1,6 @@
 {{template "header"}}
 
-<img src="/static/images/blog.jpg" alt="" />
+<img alt="blog page header" src="/static/images/blog.jpg" alt="" />
 <div
   id="blog-posts-title"
   class="flex items-center justify-center py-16 text-4xl text-white bg-black"
@@ -12,7 +12,7 @@
   {{range $i, $v := .BlogPosts}}
   <div class="w-full bg-white rounded-lg shadow-md grid grid-row-3 md:w-4/5" style="height: 27.25rem">
     <div class="object-cover w-full h-40 rounded-t-lg">
-      <img class="rounded-t-lg max-h-40" src="{{.CoverPhoto.Url}}" alt="" />
+      <img alt="blog cover photo" class="rounded-t-lg max-h-40" src="{{.CoverPhoto.Url}}" alt="" />
     </div>
     <div class="p-4 overflow-hidden" style="height: 14.8rem">
       <div class="text-2xl">{{ $v.Title }}</div>
