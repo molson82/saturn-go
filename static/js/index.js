@@ -45,7 +45,7 @@ function connectWS() {
 function sendPing() {
   ws.send("ping ws");
 
-  setTimeout(sendPing, 1000 * 60);
+  setTimeout(sendPing, 1000 * 25);
 }
 
 function notifyOnline() {
@@ -81,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.querySelector("#app").addEventListener("click", () => {
-    console.log("click app");
     document.querySelector("#slideMenu").classList.remove("slideHover");
   });
 
