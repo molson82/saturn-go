@@ -4,7 +4,8 @@
   "description": "Frontend and Go Backend Project Template",
   "main": "index.js",
   "scripts": {
-    "build:tailwind": "postcss ./static/css/master.css -o ./static/dist/tailwind.css"
+    "build:tailwind": "postcss ./static/css/master.css -o ./static/dist/tailwind.css",
+    "minify": "minify ./static/dist/tailwind.css > ./static/dist/tailwind.min.css & minify ./static/css/styles.css > ./static/css/styles.min.css & minify ./static/js/index.js > ./static/js/index.min.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/molson82/saturn-go#readme",
   "dependencies": {
+    "minify": "^7.0.2",
     "postcss": "^8.2.14",
     "postcss-cli": "^8.3.1",
     "tailwindcss": "^2.1.2"

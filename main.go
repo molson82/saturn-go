@@ -28,6 +28,7 @@ func routes(c *config.Config) *chi.Mux {
 		middleware.RequestID,
 		middleware.RedirectSlashes,
 		httplog.RequestLogger(logger),
+		middleware.SetHeader("Cache-Control", "max-age=86400"),
 		middleware.Recoverer)
 
 	r.Route("/view", func(r chi.Router) {
