@@ -44,13 +44,17 @@ function sendPing() {
 }
 
 function notifyOnline() {
-  document.querySelector("#dbc5f9ab-ca75-4498-8ed9-741cc4531530").classList.replace("text-black", "flash-icon");
-  document.querySelector("#twitch-live-pill").classList.replace("hidden", "block");
+  if (window.location.pathname.includes("/index")) {
+    document.querySelector("#dbc5f9ab-ca75-4498-8ed9-741cc4531530").classList.replace("text-black", "flash-icon");
+    document.querySelector("#twitch-live-pill").classList.replace("hidden", "block");
+  }
 }
 
 function notifyOffline() {
-  document.querySelector("#dbc5f9ab-ca75-4498-8ed9-741cc4531530").classList.replace("flash-icon", "text-black");
-  document.querySelector("#twitch-live-pill").classList.replace("block", "hidden");
+  if (window.location.pathname.includes("/index")) {
+    document.querySelector("#dbc5f9ab-ca75-4498-8ed9-741cc4531530").classList.replace("flash-icon", "text-black");
+    document.querySelector("#twitch-live-pill").classList.replace("block", "hidden");
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
