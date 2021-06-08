@@ -24,6 +24,7 @@ function connectWS() {
   ws.onclose = () => {
     console.log("CLOSE");
     ws = null;
+    setTimeout(connectWS, 1000);
   };
 
   ws.onmessage = (evt) => {
