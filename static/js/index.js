@@ -11,7 +11,11 @@ function connectWS() {
     return false;
   }
 
-  ws = new WebSocket("ws://" + window.location.host + "/api/ws/twitch-status");
+  if (window.location.protocol === "http:") {
+    ws = new WebSocket("ws://" + window.location.host + "/api/ws/twitch-status");
+  } else {
+    ws = new WebSocket("wss://" + window.location.host + "/api/ws/twitch-status");
+  }
   ws.onopen = () => {
     console.log("OPEN");
     sendPing();
