@@ -24,6 +24,12 @@ function connectWS() {
 
   ws.onmessage = (evt) => {
     console.log("RESPONSE: " + evt.data);
+    const obj = JSON.parse(evt.data);
+    if (obj.twitchStatus === "online") {
+      notifyOnline();
+    } else {
+      notifyOffline();
+    }
   };
 
   ws.onerror = (evt) => {
@@ -34,23 +40,8 @@ function connectWS() {
 function sendPing() {
   ws.send("ping ws");
 
-  setTimeout(sendPing, 1000 * 5);
+  setTimeout(sendPing, 1000 * 60);
 }
-
-//function getTwitchStatus() {
-//fetch(baseURL + "/api/redis/twitch-status", options)
-//.then((response) => response.json())
-//.then((response) => {
-//console.log("res from fetch: " + response.twitchStatus);
-//if (response.twitchStatus === "online") {
-//notifyOnline();
-//} else {
-//notifyOffline();
-//}
-//});
-
-////setTimeout(getTwitchStatus, 1000 * 60);
-//}
 
 function notifyOnline() {
   document.querySelector("#dbc5f9ab-ca75-4498-8ed9-741cc4531530").classList.replace("text-black", "flash-icon");

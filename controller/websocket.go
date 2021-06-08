@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"context"
+	"encoding/json"
 	"fmt"
 	"net/http"
 
@@ -23,25 +25,36 @@ func getTwitchStatusWS(c *config.Config) http.HandlerFunc {
 		logUtil.Info().Msg("Twitch Status Websocket connection starting...")
 
 		upgrader := websocket.Upgrader{}
-		c, err := upgrader.Upgrade(w, r, nil)
+		conn, err := upgrader.Upgrade(w, r, nil)
 		if err != nil {
 			logUtil.Error().Msg("Error setting up upgrader for ws")
 			logUtil.Err(err)
 			return
 		}
 
-		defer c.Close()
+		defer conn.Close()
 		for {
-			mt, message, err := c.ReadMessage()
+			mt, _, err := conn.ReadMessage()
 			if err != nil {
 				logUtil.Error().Msg("read error for ws")
 				logUtil.Err(err)
 				break
 			}
 
-			logUtil.Info().Msg(fmt.Sprintf("recv: %v\n", message))
+			val, err := c.Redis.Get(context.Background(), "twitch-status").Result()
+			if err != nil {
+				logUtil.Info().Msg("error reading from redis server")
+				logUtil.Err(err)
+				break
+			}
 
-			err = c.WriteMessage(mt, message)
+			logUtil.Info().Msg(fmt.Sprintf("redis res: %v\n", val))
+
+			status, _ := json.Marshal(struct {
+				TwitchStatus string `json:"twitchStatus"`
+			}{val})
+
+			err = conn.WriteMessage(mt, status)
 			if err != nil {
 				logUtil.Error().Msg("write error")
 				logUtil.Err(err)
